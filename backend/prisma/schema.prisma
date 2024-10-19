@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  usuario_id      Int    @id @default(autoincrement())
+  usuario_nome   String
+  usuario_login   String
+  usuario_cpf   String
+  usuario_senha String
+  tipo_usuario Usuario_Tipo? @relation(fields: [usuario_tipo_id], references: [usuario_tipo_id])
+  usuario_tipo_id Int
+  @@map("usuario")
+}
+
+model Usuario_Tipo {
+  usuario_tipo_id      Int    @id @default(autoincrement())
+  usuario_tipo   String
+  parametro_edit_config Boolean
+  usuario Usuario[]
+  @@map("usuario_tipo")
+}
+
